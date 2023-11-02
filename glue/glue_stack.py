@@ -82,6 +82,8 @@ class GlueStack(Stack):
                          )]),
                  recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
                      recrawl_behavior='CRAWL_EVENT_MODE'))
+        
+        ## customer glue jobs
 
         customer_glue_job = _glue.CfnJob(self, 'glue_job',
                                 name='glue_job',
@@ -94,7 +96,7 @@ class GlueStack(Stack):
                                 timeout=3)
         
         
-        
+        ##   geolocation_glue_job
         geolocation_glue_job = _glue.CfnJob(self, 'glue_job',
                                 name='glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
@@ -105,7 +107,7 @@ class GlueStack(Stack):
                                 glue_version='3.0',
                                 timeout=3)
         
-        
+        ##  order_items_glue_job
         order_items_glue_job = _glue.CfnJob(self, 'glue_job',
                                 name='glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
@@ -116,7 +118,7 @@ class GlueStack(Stack):
                                 glue_version='3.0',
                                 timeout=3)
         
-        
+        ## order_payments_glue_job
         order_payments_glue_job = _glue.CfnJob(self, 'glue_job',
                                 name='glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
@@ -128,7 +130,7 @@ class GlueStack(Stack):
                                 timeout=3)
         
         
-         
+         ###  order_reviews_glue_job
         order_reviews_glue_job = _glue.CfnJob(self, 'glue_job',
                                 name='glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
@@ -139,7 +141,7 @@ class GlueStack(Stack):
                                 glue_version='3.0',
                                 timeout=3)
         
-        
+        ## orders_glue_job 
         orders_glue_job = _glue.CfnJob(self, 'glue_job',
                                 name='glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
@@ -151,7 +153,7 @@ class GlueStack(Stack):
                                 timeout=3)
         
         
-         
+         ##  product_glue_job
         product_glue_job = _glue.CfnJob(self, 'glue_job',
                                 name='glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
@@ -161,7 +163,7 @@ class GlueStack(Stack):
                                 role=glue_role.role_arn,
                                 glue_version='3.0',
                                 timeout=3)
-        
+        ## seller_glue_job 
         seller_glue_job = _glue.CfnJob(self, 'glue_job',
                                 name='glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
@@ -172,7 +174,7 @@ class GlueStack(Stack):
                                 glue_version='3.0',
                                 timeout=3)
         
-         
+         ## product_category_glue_job
         product_category_glue_job = _glue.CfnJob(self, 'glue_job',
                                 name='glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(

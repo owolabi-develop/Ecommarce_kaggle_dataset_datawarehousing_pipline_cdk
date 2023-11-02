@@ -5,6 +5,7 @@ from  aws_cdk import (
      aws_s3 as _s3,
     RemovalPolicy,
     aws_sqs as _sqs ,
+     aws_s3_deployment as _s3deploy,
     aws_s3_notifications as s3n,
 )
 
@@ -27,6 +28,12 @@ class RawBuscketStack(Stack):
                                             removal_policy=RemovalPolicy.DESTROY,
                                             auto_delete_objects=True
                               )
+        
+        
+        ### upload all data set to 
+        _s3deploy.BucketDeployment(self,"deployment",
+                                  sources=[_s3deploy.Source.asset('dataset/')],
+                                  destination_bucket=ecommarce_raw_zone_bucket)
         
         
         
