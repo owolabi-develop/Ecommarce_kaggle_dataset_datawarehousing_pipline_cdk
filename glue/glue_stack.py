@@ -27,32 +27,6 @@ class GlueStack(Stack):
         super().__init__(scope, construct_id, **Kwargs)
         
         
-        
-        lambda_role = _iam.Role(
-            self,
-            "lambdaRole",
-             assumed_by=_iam.ServicePrincipal("lambda.amazonaws.com"),
-             managed_policies=[
-                 _iam.ManagedPolicy.from_aws_managed_policy_name("AmazonS3FullAccess"),
-                 _iam.ManagedPolicy.from_aws_managed_policy_name("CloudWatchFullAccess"),
-                
-             ]
-        )
-        
-      
-        
-        
-        
-        ecommarce_trigger = _lambda.Function(self,
-                                             "propertiesdataproducer",
-                                             runtime=_lambda.Runtime.PYTHON_3_12,
-                                             code=_lambda.Code.from_asset("lambda"),
-                                             handler="lambda.handler",
-                                             timeout=Duration.minutes(3),
-                                             role=lambda_role,
-                                           
-                                             )
-        
         ## glue script bucket
         glue_script_bucket = _s3.Bucket(self,
                                              "gluescriptbucket",
@@ -84,7 +58,7 @@ class GlueStack(Stack):
                                         catalog_id=cdk.Aws.ACCOUNT_ID,
                                         database_input=_glue.CfnDatabase.DatabaseInputProperty(
                                             name='ecommarce-database',
-                                            description='Database to store ecommarce details'))
+                                            description='Database to store ecommarce data'))
 
         _lakeformation.CfnPermissions(self, 'lakeformation_permission',
                     data_lake_principal=_lakeformation.CfnPermissions.DataLakePrincipalProperty(
@@ -109,12 +83,102 @@ class GlueStack(Stack):
                  recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
                      recrawl_behavior='CRAWL_EVENT_MODE'))
 
-        glue_job = _glue.CfnJob(self, 'glue_job',
+        customer_glue_job = _glue.CfnJob(self, 'glue_job',
                                 name='glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
                                     name='pythonshell',
                                     python_version='3.9',
-                                    script_location=f's3://{glue_script_bucket.bucket_name}/glue_job.py'),
+                                    script_location=f's3://{glue_script_bucket.bucket_name}/customer_glue_job.py'),
+                                role=glue_role.role_arn,
+                                glue_version='3.0',
+                                timeout=3)
+        
+        
+        
+        geolocation_glue_job = _glue.CfnJob(self, 'glue_job',
+                                name='glue_job',
+                                command=_glue.CfnJob.JobCommandProperty(
+                                    name='pythonshell',
+                                    python_version='3.9',
+                                    script_location=f's3://{glue_script_bucket.bucket_name}/geolocation_glue_job.py'),
+                                role=glue_role.role_arn,
+                                glue_version='3.0',
+                                timeout=3)
+        
+        
+        order_items_glue_job = _glue.CfnJob(self, 'glue_job',
+                                name='glue_job',
+                                command=_glue.CfnJob.JobCommandProperty(
+                                    name='pythonshell',
+                                    python_version='3.9',
+                                    script_location=f's3://{glue_script_bucket.bucket_name}/order_items_glue_job.py'),
+                                role=glue_role.role_arn,
+                                glue_version='3.0',
+                                timeout=3)
+        
+        
+        order_payments_glue_job = _glue.CfnJob(self, 'glue_job',
+                                name='glue_job',
+                                command=_glue.CfnJob.JobCommandProperty(
+                                    name='pythonshell',
+                                    python_version='3.9',
+                                    script_location=f's3://{glue_script_bucket.bucket_name}/order_payments_glue_job.py'),
+                                role=glue_role.role_arn,
+                                glue_version='3.0',
+                                timeout=3)
+        
+        
+         
+        order_reviews_glue_job = _glue.CfnJob(self, 'glue_job',
+                                name='glue_job',
+                                command=_glue.CfnJob.JobCommandProperty(
+                                    name='pythonshell',
+                                    python_version='3.9',
+                                    script_location=f's3://{glue_script_bucket.bucket_name}/order_reviews_glue_job.py'),
+                                role=glue_role.role_arn,
+                                glue_version='3.0',
+                                timeout=3)
+        
+        
+        orders_glue_job = _glue.CfnJob(self, 'glue_job',
+                                name='glue_job',
+                                command=_glue.CfnJob.JobCommandProperty(
+                                    name='pythonshell',
+                                    python_version='3.9',
+                                    script_location=f's3://{glue_script_bucket.bucket_name}/orders_glue_job.py'),
+                                role=glue_role.role_arn,
+                                glue_version='3.0',
+                                timeout=3)
+        
+        
+         
+        product_glue_job = _glue.CfnJob(self, 'glue_job',
+                                name='glue_job',
+                                command=_glue.CfnJob.JobCommandProperty(
+                                    name='pythonshell',
+                                    python_version='3.9',
+                                    script_location=f's3://{glue_script_bucket.bucket_name}/product_glue_job.py'),
+                                role=glue_role.role_arn,
+                                glue_version='3.0',
+                                timeout=3)
+        
+        seller_glue_job = _glue.CfnJob(self, 'glue_job',
+                                name='glue_job',
+                                command=_glue.CfnJob.JobCommandProperty(
+                                    name='pythonshell',
+                                    python_version='3.9',
+                                    script_location=f's3://{glue_script_bucket.bucket_name}/seller_glue_job.py'),
+                                role=glue_role.role_arn,
+                                glue_version='3.0',
+                                timeout=3)
+        
+         
+        product_category_glue_job = _glue.CfnJob(self, 'glue_job',
+                                name='glue_job',
+                                command=_glue.CfnJob.JobCommandProperty(
+                                    name='pythonshell',
+                                    python_version='3.9',
+                                    script_location=f's3://{glue_script_bucket.bucket_name}/product_category_glue_job.py'),
                                 role=glue_role.role_arn,
                                 glue_version='3.0',
                                 timeout=3)
