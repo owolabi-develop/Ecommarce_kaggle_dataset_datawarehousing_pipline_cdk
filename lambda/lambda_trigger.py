@@ -7,6 +7,8 @@ import boto3
 def handler(event,context):
     client = boto3.client('glue')
     
+    client.start_crawler(Name="")
+    
     glue_jobs = ['customer_glue_job',
             'geolocation_glue_job',
             "order_items_glue_job ",
