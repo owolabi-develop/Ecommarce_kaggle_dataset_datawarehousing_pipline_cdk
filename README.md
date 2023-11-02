@@ -1,18 +1,13 @@
 
-# Welcome to your CDK Python project!
+# Ecommarce kaggle Dataset data warehousing pipline
 
-This is a blank project for CDK development with Python.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## Architechure Diagram
+![alt text](digramphoto/aws_digram_proj_4_data_warehousing.png)
 
-This project is set up like a standard Python project.  The initialization
-process also creates a virtualenv within this project, stored under the `.venv`
-directory.  To create the virtualenv it assumes that there is a `python3`
-(or `python` for Windows) executable in your path with access to the `venv`
-package. If for any reason the automatic creation of the virtualenv fails,
-you can create the virtualenv manually.
+## Dataset schema design 
+![alt text](<digramphoto/database design.png>)
 
-To manually create a virtualenv on MacOS and Linux:
 
 ```
 $ python -m venv .venv

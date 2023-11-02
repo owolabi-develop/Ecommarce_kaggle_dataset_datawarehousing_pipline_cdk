@@ -15,13 +15,13 @@ from  aws_cdk import (
 
 
 
-class RawBuscketStack(Stack):
-    def __init__(self, scope: Construct, construct_id: str, **Kwargs):
-        super().__init__(scope, construct_id, **Kwargs)
+class RawBucketStack(Stack):
+    def __init__(self, scope: Construct, construct_id: str, **kwargs):
+        super().__init__(scope,construct_id, **kwargs)
     
             
         ecommarce_raw_zone_bucket = _s3.Bucket(self,
-                                     "ecommarce_raw_zone_bucket",
+                                     "ecommarcerawzonebucket",
                                      bucket_name='ecommarce-raw-zone',
                                      removal_policy=RemovalPolicy.DESTROY,
                                      auto_delete_objects=True
@@ -48,7 +48,6 @@ class RawBuscketStack(Stack):
              managed_policies=[
                  _iam.ManagedPolicy.from_aws_managed_policy_name("AmazonS3FullAccess"),
                  _iam.ManagedPolicy.from_aws_managed_policy_name("CloudWatchFullAccess"),
-                 _iam.ManagedPolicy.from_aws_managed_policy_name("AWSGlueServiceRole"),
                  _iam.ManagedPolicy.from_aws_managed_policy_name("AWSGlueConsoleFullAccess") 
              ]
         )
@@ -68,7 +67,7 @@ class RawBuscketStack(Stack):
                                              )
         
         ## sqs to   ecommarce_bucket_queue
-        ecommarce_queue = _sqs.Queue(self, 'ecommarce_queue',
+        ecommarce_queue = _sqs.Queue(self, 'ecommarcequeue',
                                             visibility_timeout=cdk.Duration.seconds(300))
         
         ecommarce_raw_zone_bucket.add_object_created_notification(s3n.SqsDestination(ecommarce_queue))

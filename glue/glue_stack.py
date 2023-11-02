@@ -15,7 +15,6 @@ from  aws_cdk import (
     aws_s3_notifications as s3n,
 )
 import aws_cdk.aws_s3_deployment as s3deploy
-
 class GlueStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **Kwargs):
         super().__init__(scope, construct_id, **Kwargs)
@@ -64,6 +63,10 @@ class GlueStack(Stack):
                     permissions=['ALL'])
         
         
+        glue_queue = _sqs.Queue(self, 'glue_queue')
+        
+        
+        
         
         _glue.CfnCrawler(self, 'glue_crawler',
                  name='ecommarce_crawler',
@@ -72,7 +75,7 @@ class GlueStack(Stack):
                  targets=_glue.CfnCrawler.TargetsProperty(
                      s3_targets=[_glue.CfnCrawler.S3TargetProperty(
                          path=f's3://ecommarce-raw-zone/',
-                         #event_queue_arn=glue_queue.queue_arn
+                         event_queue_arn=glue_queue.queue_arn
                          )]),
                  recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
                      recrawl_behavior='CRAWL_EVENT_MODE'))
@@ -88,6 +91,8 @@ class GlueStack(Stack):
                                 role=glue_role.role_arn,
                                 glue_version='3.0',
                                 timeout=3)
+        
+       
         
         
         ##   geolocation_glue_job
