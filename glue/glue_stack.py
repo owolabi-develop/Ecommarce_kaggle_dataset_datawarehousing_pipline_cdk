@@ -68,132 +68,26 @@ class GlueStack(Stack):
         
            ## glue crawlers-------------------------------------------------------------------
         
-        _glue.CfnCrawler(self, 'olist_orders_dataset',
-                 name='olist_orders_dataset',
+        _glue.CfnCrawler(self, 'ecommarce_dataset_crawler',
+                 name='ecommarce_dataset_crawler',
                  role=glue_role.role_arn,
                  database_name='ecommarce-database',
                  targets=_glue.CfnCrawler.TargetsProperty(
                      s3_targets=[_glue.CfnCrawler.S3TargetProperty(
-                         path=f's3://ecommarce-raw-zone/olist_orders_dataset.csv',
+                         path=f's3://ecommarce-raw-zone',
                          event_queue_arn=glue_queue.queue_arn
                          )]),
                  recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
                      recrawl_behavior='CRAWL_EVENT_MODE'))
         
-        
-        _glue.CfnCrawler(self, 'olist_products_dataset',
-                 name='olist_products_dataset',
-                 role=glue_role.role_arn,
-                 database_name='ecommarce-database',
-                 targets=_glue.CfnCrawler.TargetsProperty(
-                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
-                         path=f's3://ecommarce-raw-zone/olist_products_dataset.csv',
-                         event_queue_arn=glue_queue.queue_arn
-                         )]),
-                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
-                     recrawl_behavior='CRAWL_EVENT_MODE'))
     
-        _glue.CfnCrawler(self, 'olist_sellers_dataset',
-                 name='olist_sellers_dataset',
-                 role=glue_role.role_arn,
-                 database_name='ecommarce-database',
-                 targets=_glue.CfnCrawler.TargetsProperty(
-                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
-                         path=f's3://ecommarce-raw-zone/olist_sellers_dataset.csv',
-                         event_queue_arn=glue_queue.queue_arn
-                         )]),
-                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
-                     recrawl_behavior='CRAWL_EVENT_MODE'))
-        
-        
-        _glue.CfnCrawler(self, 'product_category_name_translation',
-                 name='product_category_name_translation',
-                 role=glue_role.role_arn,
-                 database_name='ecommarce-database',
-                 targets=_glue.CfnCrawler.TargetsProperty(
-                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
-                         path=f's3://ecommarce-raw-zone/product_category_name_translation.csv',
-                         event_queue_arn=glue_queue.queue_arn
-                         )]),
-                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
-                     recrawl_behavior='CRAWL_EVENT_MODE'))
-        
-        
-        _glue.CfnCrawler(self, 'olist_order_reviews_dataset',
-                 name='olist_order_reviews_dataset',
-                 role=glue_role.role_arn,
-                 database_name='ecommarce-database',
-                 targets=_glue.CfnCrawler.TargetsProperty(
-                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
-                         path=f's3://ecommarce-raw-zone/olist_order_reviews_dataset.csv',
-                         event_queue_arn=glue_queue.queue_arn
-                         )]),
-                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
-                     recrawl_behavior='CRAWL_EVENT_MODE'))
-        
-        
-        _glue.CfnCrawler(self, 'olist_order_payments_dataset',
-                 name='olist_order_payments_dataset',
-                 role=glue_role.role_arn,
-                 database_name='ecommarce-database',
-                 targets=_glue.CfnCrawler.TargetsProperty(
-                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
-                         path=f's3://ecommarce-raw-zone/olist_order_payments_dataset',
-                         event_queue_arn=glue_queue.queue_arn
-                         )]),
-                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
-                     recrawl_behavior='CRAWL_EVENT_MODE'))
-        
-        
-        _glue.CfnCrawler(self, 'olist_order_items_dataset',
-                 name='olist_order_items_dataset',
-                 role=glue_role.role_arn,
-                 database_name='ecommarce-database',
-                 targets=_glue.CfnCrawler.TargetsProperty(
-                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
-                         path=f's3://ecommarce-raw-zone/olist_order_items_dataset.csv',
-                         event_queue_arn=glue_queue.queue_arn
-                         )]),
-                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
-                     recrawl_behavior='CRAWL_EVENT_MODE'))
-        
-        
-        
-        _glue.CfnCrawler(self, 'olist_geolocation_dataset',
-                 name='olist_geolocation_dataset',
-                 role=glue_role.role_arn,
-                 database_name='ecommarce-database',
-                 targets=_glue.CfnCrawler.TargetsProperty(
-                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
-                         path=f's3://ecommarce-raw-zone/olist_geolocation_dataset.csv',
-                         event_queue_arn=glue_queue.queue_arn
-                         )]),
-                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
-                     recrawl_behavior='CRAWL_EVENT_MODE'))
-        
-        
-        _glue.CfnCrawler(self, 'olist_customers_dataset',
-                 name='olist_customers_dataset',
-                 role=glue_role.role_arn,
-                 database_name='ecommarce-database',
-                 targets=_glue.CfnCrawler.TargetsProperty(
-                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
-                         path=f's3://ecommarce-raw-zone/olist_customers_dataset',
-                         event_queue_arn=glue_queue.queue_arn
-                         )]),
-                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
-                     recrawl_behavior='CRAWL_EVENT_MODE'))
-         
-        
-        
-        
         
         ## customer glue jobs-------------------------------------------------------------------
 
         customer_glue_job = _glue.CfnJob(self, 'customer_glue_job',
                                 name='customer_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
-                                    name='pythonshell',
+                                    name='Spark',
                                     python_version='3.9',
                                     script_location=f's3://{glue_script_bucket.bucket_name}/customer_glue_job.py'),
                                 role=glue_role.role_arn,
@@ -207,7 +101,7 @@ class GlueStack(Stack):
         geolocation_glue_job = _glue.CfnJob(self, 'geolocation_glue_job',
                                 name='geolocation_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
-                                    name='pythonshell',
+                                    name='Spark',
                                     python_version='3.9',
                                     script_location=f's3://{glue_script_bucket.bucket_name}/geolocation_glue_job.py'),
                                 role=glue_role.role_arn,
@@ -218,7 +112,7 @@ class GlueStack(Stack):
         order_items_glue_job = _glue.CfnJob(self, 'order_items_glue_job',
                                 name='order_items_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
-                                    name='pythonshell',
+                                    name='Spark',
                                     python_version='3.9',
                                     script_location=f's3://{glue_script_bucket.bucket_name}/order_items_glue_job.py'),
                                 role=glue_role.role_arn,
@@ -229,7 +123,7 @@ class GlueStack(Stack):
         order_payments_glue_job = _glue.CfnJob(self, 'order_payments_glue_job',
                                 name='order_payments_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
-                                    name='pythonshell',
+                                    name='Spark',
                                     python_version='3.9',
                                     script_location=f's3://{glue_script_bucket.bucket_name}/order_payments_glue_job.py'),
                                 role=glue_role.role_arn,
@@ -241,7 +135,7 @@ class GlueStack(Stack):
         order_reviews_glue_job = _glue.CfnJob(self, 'order_reviews_glue_job',
                                 name='order_reviews_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
-                                    name='pythonshell',
+                                    name='Spark',
                                     python_version='3.9',
                                     script_location=f's3://{glue_script_bucket.bucket_name}/order_reviews_glue_job.py'),
                                 role=glue_role.role_arn,
@@ -252,7 +146,7 @@ class GlueStack(Stack):
         orders_glue_job = _glue.CfnJob(self, 'orders_glue_job',
                                 name='orders_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
-                                    name='pythonshell',
+                                    name='Spark',
                                     python_version='3.9',
                                     script_location=f's3://{glue_script_bucket.bucket_name}/orders_glue_job.py'),
                                 role=glue_role.role_arn,
@@ -264,7 +158,7 @@ class GlueStack(Stack):
         product_glue_job = _glue.CfnJob(self, 'product_glue_job',
                                 name='product_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
-                                    name='pythonshell',
+                                    name='Spark',
                                     python_version='3.9',
                                     script_location=f's3://{glue_script_bucket.bucket_name}/product_glue_job.py'),
                                 role=glue_role.role_arn,
@@ -274,7 +168,7 @@ class GlueStack(Stack):
         seller_glue_job = _glue.CfnJob(self, 'seller_glue_job',
                                 name='seller_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
-                                    name='pythonshell',
+                                    name='Spark',
                                     python_version='3.9',
                                     script_location=f's3://{glue_script_bucket.bucket_name}/seller_glue_job.py'),
                                 role=glue_role.role_arn,
@@ -285,7 +179,7 @@ class GlueStack(Stack):
         product_category_glue_job = _glue.CfnJob(self, 'product_category_glue_job',
                                 name='product_category_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
-                                    name='pythonshell',
+                                    name='Spark',
                                     python_version='3.9',
                                     script_location=f's3://{glue_script_bucket.bucket_name}/product_category_glue_job.py'),
                                 role=glue_role.role_arn,
