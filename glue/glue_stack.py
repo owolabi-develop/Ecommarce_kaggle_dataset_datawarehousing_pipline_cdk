@@ -66,21 +66,129 @@ class GlueStack(Stack):
         glue_queue = _sqs.Queue(self, 'glue_queue')
         
         
+           ## glue crawlers-------------------------------------------------------------------
         
-        
-        _glue.CfnCrawler(self, 'glue_crawler',
-                 name='ecommarce_crawler',
+        _glue.CfnCrawler(self, 'olist_orders_dataset',
+                 name='olist_orders_dataset',
                  role=glue_role.role_arn,
                  database_name='ecommarce-database',
                  targets=_glue.CfnCrawler.TargetsProperty(
                      s3_targets=[_glue.CfnCrawler.S3TargetProperty(
-                         path=f's3://ecommarce-raw-zone/',
+                         path=f's3://ecommarce-raw-zone/olist_orders_dataset.csv',
                          event_queue_arn=glue_queue.queue_arn
                          )]),
                  recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
                      recrawl_behavior='CRAWL_EVENT_MODE'))
         
-        ## customer glue jobs
+        
+        _glue.CfnCrawler(self, 'olist_products_dataset',
+                 name='olist_products_dataset',
+                 role=glue_role.role_arn,
+                 database_name='ecommarce-database',
+                 targets=_glue.CfnCrawler.TargetsProperty(
+                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
+                         path=f's3://ecommarce-raw-zone/olist_products_dataset.csv',
+                         event_queue_arn=glue_queue.queue_arn
+                         )]),
+                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
+                     recrawl_behavior='CRAWL_EVENT_MODE'))
+    
+        _glue.CfnCrawler(self, 'olist_sellers_dataset',
+                 name='olist_sellers_dataset',
+                 role=glue_role.role_arn,
+                 database_name='ecommarce-database',
+                 targets=_glue.CfnCrawler.TargetsProperty(
+                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
+                         path=f's3://ecommarce-raw-zone/olist_sellers_dataset.csv',
+                         event_queue_arn=glue_queue.queue_arn
+                         )]),
+                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
+                     recrawl_behavior='CRAWL_EVENT_MODE'))
+        
+        
+        _glue.CfnCrawler(self, 'product_category_name_translation',
+                 name='product_category_name_translation',
+                 role=glue_role.role_arn,
+                 database_name='ecommarce-database',
+                 targets=_glue.CfnCrawler.TargetsProperty(
+                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
+                         path=f's3://ecommarce-raw-zone/product_category_name_translation.csv',
+                         event_queue_arn=glue_queue.queue_arn
+                         )]),
+                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
+                     recrawl_behavior='CRAWL_EVENT_MODE'))
+        
+        
+        _glue.CfnCrawler(self, 'olist_order_reviews_dataset',
+                 name='olist_order_reviews_dataset',
+                 role=glue_role.role_arn,
+                 database_name='ecommarce-database',
+                 targets=_glue.CfnCrawler.TargetsProperty(
+                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
+                         path=f's3://ecommarce-raw-zone/olist_order_reviews_dataset.csv',
+                         event_queue_arn=glue_queue.queue_arn
+                         )]),
+                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
+                     recrawl_behavior='CRAWL_EVENT_MODE'))
+        
+        
+        _glue.CfnCrawler(self, 'olist_order_payments_dataset',
+                 name='olist_order_payments_dataset',
+                 role=glue_role.role_arn,
+                 database_name='ecommarce-database',
+                 targets=_glue.CfnCrawler.TargetsProperty(
+                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
+                         path=f's3://ecommarce-raw-zone/olist_order_payments_dataset',
+                         event_queue_arn=glue_queue.queue_arn
+                         )]),
+                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
+                     recrawl_behavior='CRAWL_EVENT_MODE'))
+        
+        
+        _glue.CfnCrawler(self, 'olist_order_items_dataset',
+                 name='olist_order_items_dataset',
+                 role=glue_role.role_arn,
+                 database_name='ecommarce-database',
+                 targets=_glue.CfnCrawler.TargetsProperty(
+                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
+                         path=f's3://ecommarce-raw-zone/olist_order_items_dataset.csv',
+                         event_queue_arn=glue_queue.queue_arn
+                         )]),
+                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
+                     recrawl_behavior='CRAWL_EVENT_MODE'))
+        
+        
+        
+        _glue.CfnCrawler(self, 'olist_geolocation_dataset',
+                 name='olist_geolocation_dataset',
+                 role=glue_role.role_arn,
+                 database_name='ecommarce-database',
+                 targets=_glue.CfnCrawler.TargetsProperty(
+                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
+                         path=f's3://ecommarce-raw-zone/olist_geolocation_dataset.csv',
+                         event_queue_arn=glue_queue.queue_arn
+                         )]),
+                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
+                     recrawl_behavior='CRAWL_EVENT_MODE'))
+        
+        
+        _glue.CfnCrawler(self, 'olist_customers_dataset',
+                 name='olist_customers_dataset',
+                 role=glue_role.role_arn,
+                 database_name='ecommarce-database',
+                 targets=_glue.CfnCrawler.TargetsProperty(
+                     s3_targets=[_glue.CfnCrawler.S3TargetProperty(
+                         path=f's3://ecommarce-raw-zone/olist_customers_dataset',
+                         event_queue_arn=glue_queue.queue_arn
+                         )]),
+                 recrawl_policy=_glue.CfnCrawler.RecrawlPolicyProperty(
+                     recrawl_behavior='CRAWL_EVENT_MODE'))
+         
+        
+        
+        
+        
+        ## customer glue jobs-------------------------------------------------------------------
 
         customer_glue_job = _glue.CfnJob(self, 'customer_glue_job',
                                 name='customer_glue_job',
