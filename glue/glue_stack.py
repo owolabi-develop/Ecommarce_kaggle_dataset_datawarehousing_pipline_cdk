@@ -16,12 +16,6 @@ from  aws_cdk import (
 )
 import aws_cdk.aws_s3_deployment as s3deploy
 
-
-Ecommarce_raw_zone_ARN = "arn:aws:s3bucket:us-east-1:521427190825:stream/ecommarce-raw-zone"
-
-Ecommarce_raw_zone_ARN = "arn:aws:s3bucket:us-east-1:521427190825:stream/ecommarce-consumption-zone"
-
-
 class GlueStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **Kwargs):
         super().__init__(scope, construct_id, **Kwargs)
@@ -85,8 +79,8 @@ class GlueStack(Stack):
         
         ## customer glue jobs
 
-        customer_glue_job = _glue.CfnJob(self, 'glue_job',
-                                name='glue_job',
+        customer_glue_job = _glue.CfnJob(self, 'customer_glue_job',
+                                name='customer_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
                                     name='pythonshell',
                                     python_version='3.9',
@@ -97,8 +91,8 @@ class GlueStack(Stack):
         
         
         ##   geolocation_glue_job
-        geolocation_glue_job = _glue.CfnJob(self, 'glue_job',
-                                name='glue_job',
+        geolocation_glue_job = _glue.CfnJob(self, 'geolocation_glue_job',
+                                name='geolocation_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
                                     name='pythonshell',
                                     python_version='3.9',
@@ -108,8 +102,8 @@ class GlueStack(Stack):
                                 timeout=3)
         
         ##  order_items_glue_job
-        order_items_glue_job = _glue.CfnJob(self, 'glue_job',
-                                name='glue_job',
+        order_items_glue_job = _glue.CfnJob(self, 'order_items_glue_job',
+                                name='order_items_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
                                     name='pythonshell',
                                     python_version='3.9',
@@ -119,8 +113,8 @@ class GlueStack(Stack):
                                 timeout=3)
         
         ## order_payments_glue_job
-        order_payments_glue_job = _glue.CfnJob(self, 'glue_job',
-                                name='glue_job',
+        order_payments_glue_job = _glue.CfnJob(self, 'order_payments_glue_job',
+                                name='order_payments_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
                                     name='pythonshell',
                                     python_version='3.9',
@@ -131,8 +125,8 @@ class GlueStack(Stack):
         
         
          ###  order_reviews_glue_job
-        order_reviews_glue_job = _glue.CfnJob(self, 'glue_job',
-                                name='glue_job',
+        order_reviews_glue_job = _glue.CfnJob(self, 'order_reviews_glue_job',
+                                name='order_reviews_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
                                     name='pythonshell',
                                     python_version='3.9',
@@ -142,8 +136,8 @@ class GlueStack(Stack):
                                 timeout=3)
         
         ## orders_glue_job 
-        orders_glue_job = _glue.CfnJob(self, 'glue_job',
-                                name='glue_job',
+        orders_glue_job = _glue.CfnJob(self, 'orders_glue_job',
+                                name='orders_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
                                     name='pythonshell',
                                     python_version='3.9',
@@ -154,8 +148,8 @@ class GlueStack(Stack):
         
         
          ##  product_glue_job
-        product_glue_job = _glue.CfnJob(self, 'glue_job',
-                                name='glue_job',
+        product_glue_job = _glue.CfnJob(self, 'product_glue_job',
+                                name='product_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
                                     name='pythonshell',
                                     python_version='3.9',
@@ -164,8 +158,8 @@ class GlueStack(Stack):
                                 glue_version='3.0',
                                 timeout=3)
         ## seller_glue_job 
-        seller_glue_job = _glue.CfnJob(self, 'glue_job',
-                                name='glue_job',
+        seller_glue_job = _glue.CfnJob(self, 'seller_glue_job',
+                                name='seller_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
                                     name='pythonshell',
                                     python_version='3.9',
@@ -175,8 +169,8 @@ class GlueStack(Stack):
                                 timeout=3)
         
          ## product_category_glue_job
-        product_category_glue_job = _glue.CfnJob(self, 'glue_job',
-                                name='glue_job',
+        product_category_glue_job = _glue.CfnJob(self, 'product_category_glue_job',
+                                name='product_category_glue_job',
                                 command=_glue.CfnJob.JobCommandProperty(
                                     name='pythonshell',
                                     python_version='3.9',
