@@ -8,6 +8,12 @@
 ## Dataset schema design 
 ![alt text](<digramphoto/database design.png>)
 
+## Sample ecommarce Data on S3 data lake
+![alt text](digramphoto/samples_folders.jpg)
+
+## Redshift  cluster warehouse table creation
+![alt text](digramphoto/redshift_tables.jpg)
+
 
 ```
 $ python -m venv .venv
