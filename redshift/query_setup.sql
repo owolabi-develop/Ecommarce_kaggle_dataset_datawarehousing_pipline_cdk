@@ -1,7 +1,8 @@
+drop schema public;
 
+create schema ecommarce_sales;
 
 ---- customer table
-
 CREATE TABLE ecommarce_sales.CUSTOMERS (
     customer_id VARCHAR,
     customer_unique_id varchar,
