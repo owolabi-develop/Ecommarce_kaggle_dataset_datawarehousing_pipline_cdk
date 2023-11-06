@@ -1,5 +1,11 @@
 
-# Ecommarce kaggle Dataset data warehousing pipline
+# Ecommarce kaggle Dataset data warehousing pipline cdk
+This pipline is an end to end data Redshift warehousing project with ecommarce dataset from kaggle
+the data is load to s3 raw zone bucket and then send sns notification to trigger lambda function to trigger glue job perform etl and load the data to consumption zone the use anthena and redshift to query the data. all the query scripts can be found in the project folder. for redshit query is located in the redshift folder and also anthena also sample dataset can be found on it folder too
+
+## Pipline workflow
+1. created table for all the dataset
+2. create views and materialized for product with heigest sale and sellers with heighest orders
 
 
 ## Architechure Diagram
@@ -20,6 +26,11 @@
 ## Product with Highest Sales
 ![alt text](digramphoto/product_heiesh.jpg)
 
+## QuickSight seller with dashboard
+![alt text](digramphoto/quick_seller_hi.jpg)
+
+## QuickSight product with dashboard
+![alt text](digramphoto/quickSiaht_h.jpg)
 
 ```
 $ python -m venv .venv
@@ -50,16 +61,3 @@ At this point you can now synthesize the CloudFormation template for this code.
 $ cdk synth
 ```
 
-To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt`
-command.
-
-## Useful commands
-
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
-
-Enjoy!
