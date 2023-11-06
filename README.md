@@ -14,6 +14,12 @@
 ## Redshift  cluster warehouse table creation
 ![alt text](digramphoto/redshift_tables.jpg)
 
+## Seller with the Highest Sales order Sample Query
+![alt text](digramphoto/seller_heiedh.jpg)
+
+## Product with Highest Sales
+![alt text](digramphoto/product_heiesh.jpg)
+
 
 ```
 $ python -m venv .venv

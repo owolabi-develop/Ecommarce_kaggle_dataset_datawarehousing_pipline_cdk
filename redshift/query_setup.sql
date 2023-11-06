@@ -32,24 +32,16 @@ create table ecommarce_sales.order_payments (
     payment_installments INT,
     payment_value FLOAT4
 );
-create table ecommarce_sales.order_payments (
-    review_id VARCHAR,
-    order_id VARCHAR,
-    review_score INT2,
-    review_comment_title VARCHAR,
-    review_comment_message VARCHAR,
-    review_creation_date DATE,
-    review_answer_timestamp TIMESTAMP
-);
+
 create table ecommarce_sales.orders (
     order_id VARCHAR,
     customer_id VARCHAR,
     order_status VARCHAR,
-    order_purchase_timestamp TIMESTAMP,
-    order_approved_at DATE,
-    order_delivered_carrier_date DATE,
-    order_delivered_customer_date DATE,
-    order_estimated_delivery_date DATE
+    order_purchase_timestamp TIMESTAMP ,
+    order_approved_at TIMESTAMP,
+    order_delivered_carrier_date TIMESTAMP,
+    order_delivered_customer_date TIMESTAMP,
+    order_estimated_delivery_date TIMESTAMP
 );
 CREATE table ecommarce_sales.product (
     product_id varchar,
@@ -129,13 +121,14 @@ copy ecommarce_sales.orders
 
 
 
-copy ecommarce_sales.product
-    from 's3://ecommarce-raw-zones/olist_products_dataset.csv'
-    format as csv
-    delimiter ','
-    quote '"'
-    region 'us-east-1'
-    IAM_ROLE 'arn:aws:iam::521427190825:role/service-role/AmazonRedshift-CommandsAccessRole-20240405T050528'
+COPY dev.ecommarce_sales.product  
+FROM 's3://ecommarce-raw-zones/olist_products_dataset.csv' 
+IAM_ROLE 'arn:aws:iam::521427190825:role/service-role/AmazonRedshift-CommandsAccessRole-20240405T050528' 
+FORMAT AS CSV
+ DELIMITER ',' 
+ QUOTE '"' 
+ IGNOREHEADER 1 
+ REGION AS 'us-east-1'
 
 
 
@@ -161,9 +154,100 @@ copy ecommarce_sales.orders_reviews
 
 
 copy ecommarce_sales.sellers
-    from 's3://ecommarce-raw-zones/product_category_name_translation.csv'
+    from 's3://ecommarce-raw-zones/olist_sellers_dataset.csv'
     format as csv
     delimiter ','
     quote '"'
     region 'us-east-1'
     IAM_ROLE 'arn:aws:iam::521427190825:role/service-role/AmazonRedshift-CommandsAccessRole-20240405T050528'
+
+
+
+
+
+--- business decision need 
+
+
+---- seller with highest orders
+
+SELECT 
+    COUNT(ordItm.order_id) AS order_count,
+    seller.seller_id,
+    seller.seller_city,
+    seller.seller_state
+FROM 
+    ecommarce_sales.sellers AS seller
+INNER JOIN 
+     ecommarce_sales.order_items AS ordItm ON seller.seller_id = ordItm.seller_id
+WHERE 
+    seller.seller_id = ordItm.seller_id
+GROUP BY 
+    seller.seller_id, seller.seller_city, seller.seller_state
+
+
+
+--- products with the higest sales
+
+
+select SUM(ordItm.price) as total_product_sales, p.product_id, p.product_category_name as product_name,
+ordItm.order_id, ordItm.price,
+payments.payment_type
+
+from ecommarce_sales.product as p
+
+inner join   ecommarce_sales.order_items as ordItm
+on p.product_id = ordItm.product_id
+
+inner join  ecommarce_sales.order_payment as payments
+
+on payments.order_id = ordItm.order_id
+
+where p.product_id = ordItm.product_id
+
+group by p.product_id, p.product_category_name,
+ordItm.order_id, ordItm.order_id, ordItm.price,
+payments.payment_type
+
+limit 10;
+
+
+---- materialize views
+
+CREATE MATERIALIZED VIEW seller_heighest as
+SELECT 
+    COUNT(ordItm.order_id) AS order_count,
+    seller.seller_id,
+    seller.seller_city,
+    seller.seller_state
+FROM 
+    ecommarce_sales.sellers AS seller
+INNER JOIN 
+     ecommarce_sales.order_items AS ordItm ON seller.seller_id = ordItm.seller_id
+WHERE 
+    seller.seller_id = ordItm.seller_id
+GROUP BY 
+    seller.seller_id, seller.seller_city, seller.seller_state
+
+
+--------------------product with highest sales
+
+CREATE MATERIALIZED VIEW ecommarce_sales.product_highest_sales as 
+select SUM(ordItm.price) as total_product_sales, p.product_id, p.product_category_name as product_name, ordItm.order_id, ordItm.price,
+payments.payment_type
+
+from ecommarce_sales.product as p
+
+inner join ecommarce_sales.order_items as ordItm
+on p.product_id = ordItm.product_id
+
+inner join ecommarce_sales.order_payment as payments
+
+on payments.order_id = ordItm.order_id
+
+where 
+  p.product_id = ordItm.product_id
+
+group by
+  p.product_id, p.product_category_name,
+ordItm.order_id, ordItm.order_id, ordItm.price,
+payments.payment_type;
